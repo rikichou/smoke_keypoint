@@ -69,6 +69,13 @@ for idx,f in enumerate(files):
     # center
     out_json_info['center'] = ann['shapes'][0]['points'][1]
 
+    # point type
+    try:
+        out_json_info['point_type'] = 'with_hand' if ann['shapes'][0]['point_type'][0] == 2 else "no_hand"
+    except:
+        print("have no point type ", img_json_path)
+        continue
+
     out_mpii_json.append(out_json_info)
 
     # copy image to dst dir
