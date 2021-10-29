@@ -7,8 +7,8 @@ import shutil
 
 level = 3
 
-SRC_ROOT_IMG_DIR = '/Volumes/10.20.132.160-1/pro/smoke_keypoint/data/smoke_keypoint'
-OUT_ROOT_DIR =  '/Volumes/10.20.132.160-1/pro/smoke_keypoint/data/smoke_keypoint_mpii'
+SRC_ROOT_IMG_DIR = 'H:\pro\smoke_keypoint\data\smoke_keypoint'
+OUT_ROOT_DIR =  'H:\pro\smoke_keypoint\data\smoke_keypoint_mpii'
 OUT_ROOT_IMG_DIR = os.path.join(OUT_ROOT_DIR, 'images')
 if not os.path.exists(OUT_ROOT_IMG_DIR):
     os.makedirs(OUT_ROOT_IMG_DIR)
@@ -42,7 +42,11 @@ for idx,f in enumerate(files):
 
     # read all json info
     with open(img_json_path, 'r') as fp:
-        ann = json.load(fp)
+        try:
+            ann = json.load(fp)
+        except:
+            print("Failed to Load json file ", img_json_path)
+            continue
 
     # to mpii format
 
@@ -69,7 +73,9 @@ for idx,f in enumerate(files):
 
     # copy image to dst dir
     out_img_path = os.path.join(OUT_ROOT_IMG_DIR, image_name)
-    shutil.copy(img, out_img_path)
+
+    if not os.path.exists(out_img_path):
+        shutil.copy(img, out_img_path)
 
     if idx%1000 == 0:
         print("{}/{}".format(idx, len(files)))
