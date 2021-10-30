@@ -5,17 +5,17 @@ import numpy as np
 import cv2
 import json
 
-ANNS_FILE_PATH = r'H:\pro\smoke_keypoint\data\smoke_keypoint_mpii\annotations\train.json'
-OUT_ANNS_PATH = r'H:\pro\smoke_keypoint\data\smoke_keypoint_mpii\annotations\new_center_train.json'
+ANNS_FILE_PATH = r'/zhourui/workspace/pro/smoke_keypoint/data/smoke_keypoint_mpii/annotations/train.json'
+OUT_ANNS_PATH = r'/zhourui/workspace/pro/smoke_keypoint/data/smoke_keypoint_mpii/annotations/new_center_train.json'
 
-IMG_ROOT_DIR = r'H:\pro\smoke_keypoint\data\smoke_keypoint_mpii\images'
+IMG_ROOT_DIR = r'/zhourui/workspace/pro/smoke_keypoint/data/smoke_keypoint_mpii/images'
 
 # load old json info
 with open(ANNS_FILE_PATH, 'r') as fp:
     anns = json.load(fp)
 
 # load facerect info
-facerect_file_path = r'H:\pro\smoke_keypoint\data\smoke_keypoint_mpii\annotations\facerect.npy'
+facerect_file_path = r'/zhourui/workspace/pro/smoke_keypoint/data/smoke_keypoint_mpii/images/facerect.npy'
 rect_infos = np.load(facerect_file_path, allow_pickle=True).item()
 
 def get_center(image, facerect):
