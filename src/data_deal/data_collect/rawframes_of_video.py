@@ -16,7 +16,6 @@ sys.path.append(os.path.join(os.getcwd(), '../../common_utils'))
 import glob
 import argparse
 import multiprocessing
-multiprocessing.set_start_method('spawn')
 from multiprocessing import Process, Lock, Value
 import cv2
 import numpy as np
@@ -160,5 +159,6 @@ def main():
     # multi process
     multi_process(video_dirs, args)
 
+multiprocessing.set_start_method('forkserver', force=True)
 if __name__ == '__main__':
     main()
