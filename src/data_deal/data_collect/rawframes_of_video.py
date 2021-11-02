@@ -161,6 +161,6 @@ def main():
     # multi process
     multi_process(video_dirs, args)
 
-multiprocessing.set_start_method('forkserver', force=True)
+#multiprocessing.set_start_method('forkserver', force=True)
 if __name__ == '__main__':
     main()
