@@ -16,7 +16,6 @@ sys.path.append(os.path.join(os.getcwd(), '../../common_utils'))
 import glob
 import shutil
 import argparse
-import multiprocessing
 from multiprocessing import Process, Lock, Value
 import cv2
 import numpy as np
