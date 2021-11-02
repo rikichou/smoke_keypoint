@@ -14,6 +14,7 @@ else:
 import sys
 sys.path.append(os.path.join(os.getcwd(), '../../common_utils'))
 import glob
+import shutil
 import argparse
 import multiprocessing
 from multiprocessing import Process, Lock, Value
@@ -102,7 +103,8 @@ def process_paths(paths, args, lock, counter, total_length):
                     high_count += 1
             if low_count>=2 or high_count>=1:
                 # save warning pictures
-                os.path.join(args.out_folder, os.path.basename(img_path))
+                out_img_path = os.path.join(args.out_folder, os.path.basename(img_path))
+                shutil.copy(img_path, out_img_path)
 
         # counter
         lock.acquire()
