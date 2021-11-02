@@ -60,6 +60,10 @@ def parse_args():
 def process_paths(paths, args, lock, counter, total_length):
     # init face detection model
     faceDetect = FaceDetect(args=args)
+    sk = smoke_keypoint.SmokeKeypoint(
+        '../../common_utils/smoke_keypoint_python/models/litehrnet_18_smoke_keypoint_256x256/litehrnet_18_smoke_keypoint_256x256.py',
+        '../../common_utils/smoke_keypoint_python/models/litehrnet_18_smoke_keypoint_256x256/epoch_140.pth',
+        device='cpu' if args.cpu else 'cuda')
 
     for path in paths:
         # get all images to process
@@ -82,11 +86,6 @@ def process_paths(paths, args, lock, counter, total_length):
             sx, sy, ex, ey = bbox
 
             # get smoke keypoint
-            sk = smoke_keypoint.SmokeKeypoint(
-                '../../common_utils/smoke_keypoint_python/models/litehrnet_18_smoke_keypoint_256x256/litehrnet_18_smoke_keypoint_256x256.py',
-                '../../common_utils/smoke_keypoint_python/models/litehrnet_18_smoke_keypoint_256x256/epoch_140.pth',
-                device='cpu' if args.cpu else 'cuda')
-
             points = sk(image, (sx, sy, ex, ey))
 
             # if one score greater than 0.6, or more than one greater than 0.3
@@ -103,7 +102,8 @@ def process_paths(paths, args, lock, counter, total_length):
                     high_count += 1
             if low_count>=2 or high_count>=1:
                 # save warning pictures
-                out_img_path = os.path.join(args.out_folder, os.path.basename(img_path))
+                _,outdname,imgname = img_path.rsplit('/', maxsplit=2)
+                out_img_path = os.path.join(args.out_folder, outdname+'_'+imgname)
                 shutil.copy(img_path, out_img_path)
 
         # counter
