@@ -102,7 +102,7 @@ def process_paths(paths, args, lock, counter, total_length):
                     high_count += 1
             if low_count>=2 or high_count>=1:
                 # save warning pictures
-                os.path.join(args.out_folder, os.path.basename(images_path))
+                os.path.join(args.out_folder, os.path.basename(img_path))
 
         # counter
         lock.acquire()
