@@ -121,8 +121,6 @@ def multi_process(video_dirs, args):
     for v in video_dirs:
         if not os.path.isdir(v):
             continue
-        if os.path.exists(os.path.join(v, args.out_name)):
-            continue
         to_process_video_dirs.append(v)
 
     # start process
