@@ -15,6 +15,8 @@ import sys
 sys.path.append(os.path.join(os.getcwd(), '../../common_utils'))
 import glob
 import argparse
+import multiprocessing
+multiprocessing.set_start_method('spawn')
 from multiprocessing import Process, Lock, Value
 import cv2
 import numpy as np
