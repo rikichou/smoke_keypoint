@@ -71,6 +71,14 @@ def process_paths(paths, args, lock, counter, total_length):
 
         for i in range(0, len(images_path), 15):
             img_path = images_path[i]
+
+            # check if run before
+            _, outdname, imgname = img_path.rsplit('/', maxsplit=2)
+            out_dir = os.path.join(args.out_folder, outdname)
+            if not os.path.exists(out_dir):
+                os.makedirs(out_dir)
+            out_img_path = os.path.join(out_dir, imgname)
+
             # open and preprocess image
             image = cv2.imdecode(np.fromfile(img_path, dtype=np.uint8), 1)
             if image is None:
@@ -102,8 +110,6 @@ def process_paths(paths, args, lock, counter, total_length):
                     high_count += 1
             if low_count>=2 or high_count>=1:
                 # save warning pictures
-                _,outdname,imgname = img_path.rsplit('/', maxsplit=2)
-                out_img_path = os.path.join(args.out_folder, outdname+'_'+imgname)
                 shutil.copy(img_path, out_img_path)
 
         # counter

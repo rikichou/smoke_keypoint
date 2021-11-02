@@ -1,23 +1,22 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import sys
 import os
-sys.path.append(os.path.join(os.getcwd(), '../utils'))
+sys.path.append(os.path.join(os.getcwd(), '../common_utils'))
 import os
 
 import cv2
 
 if sys.platform == "darwin":
     print('=>>>>load data from mac platform')
-    sys.path.append("/Users/zhourui/workspace/pro/source/yolov5")
     yolov5_src = "/Users/zhourui/workspace/pro/source/yolov5"
 elif sys.platform == 'win32':
     print('=>>>>load data from window platform')
-    sys.path.append(r"D:\workspace\pro\source\yolov5")
     yolov5_src = r"D:\workspace\pro\source\yolov5"
 else:
     print('=>>>>load data from linux platform')
-    sys.path.append("/home/ruiming/workspace/pro/source/yolov5")
     yolov5_src = "/home/ruiming/workspace/pro/source/yolov5"
+
+sys.path.insert(0, yolov5_src)
 
 from smoke_keypoint_python import smoke_keypoint
 
@@ -36,16 +35,16 @@ def is_image(name):
         return False
 
 def test_imgs(img_dir, args):
-    args.use_scrfd = True
+    args.use_scrfd = False
     args.cpu = True
 
     # init face detection model
     if args.use_scrfd:
         from scrdf_python import scrfd
         fd = scrfd.ScrdfFaceDet(0.45,
-                                model_path='../utils/scrdf_python/models/model.pth',
+                                model_path='../common_utils/scrdf_python/models/model.pth',
                                 device='cpu' if args.cpu else 'cuda',
-                                config='../utils/scrdf_python/models/scrfd_500m.py')
+                                config='../common_utils/scrdf_python/models/scrfd_500m.py')
     else:
         from FaceDetection import FaceDetect
         args.weights = os.path.join(yolov5_src, 'weights/200_last.pt')
@@ -53,8 +52,8 @@ def test_imgs(img_dir, args):
         fd = FaceDetect(args=args)
 
     # init smoke keypoint model
-    sk = smoke_keypoint.SmokeKeypoint('../utils/smoke_keypoint_python/models/litehrnet_18_smoke_keypoint_256x256/litehrnet_18_smoke_keypoint_256x256.py',
-                                 '../utils/smoke_keypoint_python/models/litehrnet_18_smoke_keypoint_256x256/epoch_140.pth',
+    sk = smoke_keypoint.SmokeKeypoint('../common_utils/smoke_keypoint_python/models/litehrnet_18_smoke_keypoint_256x256/litehrnet_18_smoke_keypoint_256x256.py',
+                                 '../common_utils/smoke_keypoint_python/models/litehrnet_18_smoke_keypoint_256x256/epoch_140.pth',
                                  device='cpu' if args.cpu else 'cuda')
 
     imgs = os.listdir(img_dir)
