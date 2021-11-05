@@ -6,7 +6,7 @@ from multiprocessing import Pool
 
 num_worker = 10
 IMG_ROOT_DIR = r'/zhourui/workspace/pro/smoke_keypoint/data/collected/fatigue_clips'
-IMG_OUT_DIR = r'/zhourui/workspace/pro/smoke_keypoint/data/smoke_keypoint_mpii/negative_images'
+IMG_OUT_DIR = r'/zhourui/workspace/pro/smoke_keypoint/data/smoke_keypoint_mpii/images/negative'
 if not os.path.exists(IMG_OUT_DIR):
     os.makedirs(IMG_OUT_DIR)
 
@@ -20,7 +20,8 @@ def deal(item):
     out_name = dname+'_'+imgname
     out_path = os.path.join(IMG_OUT_DIR, out_name)
 
-    shutil.copy(img, out_path)
+    if not os.path.exists(out_path):
+        shutil.copy(img, out_path)
 
 
 with Pool(num_worker) as pool:
