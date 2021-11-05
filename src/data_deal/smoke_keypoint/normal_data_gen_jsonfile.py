@@ -69,7 +69,7 @@ for idx,f in enumerate(files):
     out_json_info['joints'] = [[-1, -1],[-1, -1],[-1, -1]]
 
     # image name
-    _,dname,imgname = img.rsplit(img, maxsplit=2)
+    _,dname,imgname = img.rsplit('/', maxsplit=2)
     out_json_info['image'] = os.path.join(dname, imgname)
 
     # scale
