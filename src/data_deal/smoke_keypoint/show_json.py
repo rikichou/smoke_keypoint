@@ -4,7 +4,7 @@ import os
 import cv2
 import json
 
-ANNS_DIR = '/Volumes/10.20.132.160-1/pro/smoke_keypoint/data/smoke_keypoint/20210427/2'
+ANNS_DIR = r'H:\pro\smoke_keypoint\data\smoke_keypoint_relabel\20210728\4'
 
 fs = os.listdir(ANNS_DIR)
 

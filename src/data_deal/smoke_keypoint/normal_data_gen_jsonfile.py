@@ -8,12 +8,13 @@ import cv2
 
 level = 1
 
-SRC_ROOT_IMG_DIR = '/zhourui/workspace/pro/smoke_keypoint/data/smoke_keypoint_mpii/train/negative_images'
+SRC_ROOT_IMG_DIR = r'H:\pro\smoke_keypoint\data\smoke_keypoint_mpii_relabel\images\negative'
+SRC_COPY_ROOT_IMG_DIR = r'H:\pro\smoke_keypoint\data\smoke_keypoint_mpii\images\negative'
 
-OUT_ROOT_ANNS_DIR = '/zhourui/workspace/pro/smoke_keypoint/data/smoke_keypoint_mpii/annotations'
+OUT_ROOT_ANNS_DIR = r'H:\pro\smoke_keypoint\data\smoke_keypoint_mpii_relabel\annotations'
 if not os.path.exists(OUT_ROOT_ANNS_DIR):
     os.makedirs(OUT_ROOT_ANNS_DIR)
-OUT_ANNS_PATH = os.path.join(OUT_ROOT_ANNS_DIR, 'fatigue_negative.json')
+OUT_ANNS_PATH = os.path.join(OUT_ROOT_ANNS_DIR, 'negative.json')
 
 # load facerect info
 facerect_file_path = os.path.join(SRC_ROOT_IMG_DIR, 'facerect.npy')
@@ -36,7 +37,7 @@ def get_center(image, facerect):
 
     res = 200
     cx = sx + (ex-sx)/2
-    cy = ey
+    cy = ey - (ey-sy)/3
 
     osx = cx - res
     osy = cy - res
@@ -69,8 +70,8 @@ for idx,f in enumerate(files):
     out_json_info['joints'] = [[-1, -1],[-1, -1],[-1, -1]]
 
     # image name
-    _,dname,imgname = img.rsplit('/', maxsplit=2)
-    out_json_info['image'] = os.path.join(dname, imgname)
+    imgname = os.path.basename(img)
+    out_json_info['image'] = 'negative/' + imgname
 
     # scale
     out_json_info['scale'] = 1.0

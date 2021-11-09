@@ -4,8 +4,8 @@ import os
 import cv2
 import json
 
-ANNS_FILE_PATH = '/Volumes/10.20.132.160-1/pro/smoke_keypoint/data/smoke_keypoint_mpii/annotations/train.json'
-IMG_ROOT_DIR = '/Volumes/10.20.132.160-1/pro/smoke_keypoint/data/smoke_keypoint_mpii/images'
+ANNS_FILE_PATH = r'H:\pro\smoke_keypoint\data\smoke_keypoint_mpii_relabel\annotations\positive.json'
+IMG_ROOT_DIR = r'H:\pro\smoke_keypoint\data\smoke_keypoint_mpii_relabel\images\positive'
 
 with open(ANNS_FILE_PATH, 'r') as fp:
     anns = json.load(fp)
@@ -25,6 +25,12 @@ for ann in anns:
         cv2.circle(img, (int(x),int(y)), 1, color_map[idx], 2)
     cx,cy = ann['center']
     cv2.circle(img, (int(cx), int(cy)), 1, (0, 255, 255), 5)
+
+    sx = int(cx) - 200
+    ex = int(cx) + 200
+    sy = int(cy) - 200
+    ey = int(cy) + 200
+    cv2.rectangle(img, (sx,sy), (ex, ey), (0,255,0), 1)
 
     # show
     cv2.imshow('pose', img)
