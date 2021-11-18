@@ -58,7 +58,12 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-def get_smoking_rect_by_facialpoints(pts, facerect):
+def get_smoking_rect_by_facialpoints(image, pts, facerect):
+    shape = image.shape
+    if len(shape) == 3:
+        h,w,_ = shape
+    else:
+        h,w = shape
     # get mouth points (13_left, 14_up, 15_right, 16_down)
     mouth = pts[13:17]
     mouth = np.array(mouth)
@@ -84,10 +89,10 @@ def get_smoking_rect_by_facialpoints(pts, facerect):
     face_size = max(face_w, face_h)
     det_size = int(face_size*ratio)
 
-    det_sx = cx - det_size
-    det_ex = cx + det_size
-    det_sy = cy - det_size
-    det_ey = cy + det_size
+    det_sx = max(0, cx - det_size)
+    det_ex = min(w, cx + det_size)
+    det_sy = max(0, cy - det_size)
+    det_ey = min(h, cy + det_size)
 
     return cx, cy, det_sx, det_sy, det_ex, det_ey
 
@@ -135,7 +140,7 @@ def process_paths(paths, args, lock, counter, total_length):
             eye, mouth = fa.forward_with_rect(image, (sx, sy, ex, ey))
             pts_pre = np.concatenate((eye, mouth), axis=0)
 
-            cx, cy, detsx, detsy, detex, detey = get_smoking_rect_by_facialpoints(pts_pre, (sx, sy, ex, ey))
+            cx, cy, detsx, detsy, detex, detey = get_smoking_rect_by_facialpoints(image, pts_pre, (sx, sy, ex, ey))
 
             # get smoke keypoint
             points = sk(image, (detsx, detsy, detex, detey))
