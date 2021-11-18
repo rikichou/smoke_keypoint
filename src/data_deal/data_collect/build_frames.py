@@ -29,6 +29,7 @@ def extract_frame(vid_item):
     global args
     global skip_count
     full_path, vid_path, vid_id = vid_item
+
     if str(Path('/')) in vid_path:
         out_full_path = osp.join(args.out_dir, vid_path.rsplit(str(Path('/')), maxsplit=1)[0])
     else:
@@ -37,6 +38,8 @@ def extract_frame(vid_item):
     # Not like using denseflow,
     # Use OpenCV will not make a sub directory with the video name
     video_name = osp.splitext(osp.basename(vid_path))[0]
+    if '01p015000000' in video_name:
+        return True
     out_full_path = osp.join(out_full_path, video_name)
 
     # check if it is dealed
