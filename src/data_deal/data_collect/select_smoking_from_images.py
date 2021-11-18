@@ -12,7 +12,8 @@ else:
     sys.path.append(r"/zhourui/workspace/pro/source/yolov5")
 
 import sys
-sys.path.append(os.path.join(os.getcwd(), '../../common_utils'))
+sys.path.append(os.path.join(os.getcwd(), '../common_utils'))
+sys.path.append('../common_utils/Facealign')
 import glob
 import shutil
 import argparse
