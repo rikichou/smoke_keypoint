@@ -38,7 +38,7 @@ def extract_frame(vid_item):
     # Not like using denseflow,
     # Use OpenCV will not make a sub directory with the video name
     video_name = osp.splitext(osp.basename(vid_path))[0]
-    if '01p015000000' in video_name or '_CH1' in video_name or 'channelNo0.' in video_name or 'almsmoke' in video_name:
+    if '01p015000000' in video_name or '_CH1' in video_name or 'channelNo0.' in video_name or 'almsmoke' in video_name or '01p015000000' in video_name or '01p011000000' in video_name:
         return True
     out_full_path = osp.join(out_full_path, video_name)
 
