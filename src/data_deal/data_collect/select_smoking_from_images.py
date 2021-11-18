@@ -57,8 +57,7 @@ def parse_args():
     parser.add_argument(
         '--ext',
         type=str,
-        default='avi',
-        choices=['avi', 'mp4', 'webm'],
+        default='jpg',
         help='video file extensions')
 
     args = parser.parse_args()
