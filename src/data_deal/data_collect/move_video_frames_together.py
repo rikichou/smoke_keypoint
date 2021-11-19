@@ -5,8 +5,8 @@ import tqdm
 from multiprocessing import Pool
 
 num_worker = 10
-IMG_ROOT_DIR = r'/zhourui/workspace/pro/smoke_keypoint/data/collected/fatigue_clips'
-IMG_OUT_DIR = r'/zhourui/workspace/pro/smoke_keypoint/data/smoke_keypoint_mpii/images/negative'
+IMG_ROOT_DIR = r'/zhourui/workspace/pro/smoke_keypoint/data/collected/rawframes'
+IMG_OUT_DIR = r'/zhourui/workspace/pro/smoke_keypoint/data/collected/negative'
 if not os.path.exists(IMG_OUT_DIR):
     os.makedirs(IMG_OUT_DIR)
 
