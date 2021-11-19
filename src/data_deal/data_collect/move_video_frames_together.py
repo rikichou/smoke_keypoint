@@ -10,7 +10,7 @@ IMG_OUT_DIR = r'/zhourui/workspace/pro/smoke_keypoint/data/collected/negative'
 if not os.path.exists(IMG_OUT_DIR):
     os.makedirs(IMG_OUT_DIR)
 
-imgs = glob.glob(os.path.join(IMG_ROOT_DIR, '*/*.jpg'))
+imgs = glob.glob(os.path.join(IMG_ROOT_DIR, '*/*/*.jpg'))
 print("Total {} images".format(len(imgs)))
 
 def deal(item):
