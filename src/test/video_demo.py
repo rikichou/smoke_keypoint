@@ -1,7 +1,7 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import sys
 import os
-sys.path.append(os.path.join(os.getcwd(), '../utils'))
+sys.path.append(os.path.join(os.getcwd(), '../common_utils'))
 import os
 
 import cv2
