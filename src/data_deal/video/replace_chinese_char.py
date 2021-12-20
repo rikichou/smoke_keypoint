@@ -70,6 +70,8 @@ def deal(item):
             shutil.move(f, os.path.join(os.path.dirname(f), new_name))
         else:
             print("rename {} : {} ---> {}".format(os.path.dirname(f), name, new_name))
+            if os.path.exists(os.path.join(os.path.dirname(f), new_name)):
+                os.remove(os.path.join(os.path.dirname(f), new_name))
             os.rename(f, os.path.join(os.path.dirname(f), new_name))
 
 args = parse_args()
