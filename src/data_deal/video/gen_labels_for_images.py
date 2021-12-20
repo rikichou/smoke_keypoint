@@ -1,6 +1,9 @@
 import sys
 import os
 
+sys.path.append(os.path.join(os.getcwd(), '../../common_utils'))
+sys.path.append('../../common_utils/Facealign')
+
 if sys.platform == "darwin":
     print('=>>>>load data from mac platform')
     yolov5_src = "/Users/zhourui/workspace/pro/source/yolov5"
@@ -18,11 +21,6 @@ import glob
 from pathlib import Path
 import cv2
 import numpy as np
-
-from utils.scn_python import scn
-from utils.mmcls_python import mmcls_fer
-from utils.whenet_fpose_python import whenet_fpose
-from utils import common
 
 from smoke_keypoint_python import smoke_keypoint
 from Facealign import FaceAlignment
@@ -49,7 +47,7 @@ def parse_args():
         choices=[1, 2, 3],
         help='directory level of video dir')
     parser.add_argument(
-        '--num_worker',
+        '--num-worker',
         type=int,
         default=10,
         help='num workers to preprocess')
