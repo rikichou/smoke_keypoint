@@ -26,7 +26,8 @@ def data_deal(item):
         ret,frame = cap.read()
         if ret is None:
             break
-        
+        if frame is None:
+            break        
         # size check
         h,w,c = frame.shape
         if h == 1080 and w == 1920 and c == 3:
