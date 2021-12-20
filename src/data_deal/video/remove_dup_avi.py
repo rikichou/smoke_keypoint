@@ -14,7 +14,8 @@ for v in videos:
     checkname = basename+'.264.avi'
 
     if os.path.exists(os.path.join(VIDEO_ROOT_DIR, checkname)):
-        duplist.append(checkname)
+        #duplist.append(checkname)
+        os.remove(os.path.join(VIDEO_ROOT_DIR, checkname))
 
-print(duplist)
-print(len(duplist))
+#print(duplist)
+#print(len(duplist))

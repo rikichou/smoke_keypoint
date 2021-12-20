@@ -2,8 +2,8 @@
 import os
 import shutil
 
-IMG_ROOT_DIR = r'\\192.168.80.4\CV_storage6\F_public\public\workspace\exchange\dsm\sampleclips'
-OUT_ROOT_DIR = r'H:\pro\smoke_keypoint\data\test\collect\videos\collect'
+IMG_ROOT_DIR = r'/run/user/1000/gvfs/smb-share:server=192.168.80.4,share=cv_storage6/F_public/public/workspace/exchange/dsm/sampleclips'
+OUT_ROOT_DIR = r'/home/ruiming/workspace/pro/smoke_keypoints/smoke_keypoint/data/collect'
 if not os.path.exists(OUT_ROOT_DIR):
   os.makedirs(OUT_ROOT_DIR)
 save_info = {}
