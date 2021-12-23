@@ -1,19 +1,21 @@
 import sys
 import os
-
+import random
 import cv2
 import json
 
-ANNS_FILE_PATH = r'H:\pro\smoke_keypoint\data\smoke_keypoint_mpii_relabel\annotations\positive.json'
-IMG_ROOT_DIR = r'H:\pro\smoke_keypoint\data\smoke_keypoint_mpii_relabel\images\positive'
+ANNS_FILE_PATH = r'H:\pro\smoke_keypoint\data\smoke_keypoint_mpii_relabel\annotations\valid_positive.json'
+IMG_ROOT_DIR = r'H:\pro\smoke_keypoint\data\smoke_keypoint_mpii_relabel\images'
 
 with open(ANNS_FILE_PATH, 'r') as fp:
     anns = json.load(fp)
 
+random.shuffle(anns)
 for ann in anns:
-    print(ann)
     # get image
     img = ann['image']
+    # if '0000000000000000-190513-035851-035915-000003290330200.jpg' not in img:
+    #     continue
     img_path = os.path.join(IMG_ROOT_DIR, img)
     img = cv2.imread(img_path)
 

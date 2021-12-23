@@ -7,8 +7,8 @@ import cv2
 import mmcv
 import random
 
-VIDEO_ROOT_DIR = r'/zhourui/workspace/pro/smoke_keypoint/data/video/selected'
-OUT_ROOT_DIR = r'/zhourui/workspace/pro/smoke_keypoint/data/video/selected_adas'
+VIDEO_ROOT_DIR = r'H:\pro\smoke_keypoint\data\video\selected_remain'
+OUT_ROOT_DIR = r'H:\pro\smoke_keypoint\data\video\selected_adas'
 if not os.path.exists(OUT_ROOT_DIR):
     os.makedirs(OUT_ROOT_DIR)
 
@@ -40,7 +40,8 @@ def data_deal(item):
             #     assert(False)
             # print(vname, frame.shape)
         break
-        
+
+
 num_worker = 10
 if __name__ == '__main__':
     with Pool(num_worker) as pool:
