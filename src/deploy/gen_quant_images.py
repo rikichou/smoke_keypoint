@@ -35,12 +35,21 @@ with open(json_path, 'r') as fp:
         
         image_det = image[sy:sy+h, sx:sx+w, :]
         
-        try:
-            image_det = cv2.cvtColor(image_det, cv2.COLOR_BGR2GRAY)
-        except:
+        # try:
+        #     image_det = cv2.cvtColor(image_det, cv2.COLOR_BGR2GRAY)
+        # except:
+        #     continue
+        if image_det is None:
             continue
-        out_img_path = os.path.join(OUT_ROOT_DIR, os.path.basename(img_path))
-        cv2.imwrite(out_img_path, image_det)
+        try:
+            out_img_path = os.path.join(OUT_ROOT_DIR, os.path.basename(img_path))
+            cv2.imwrite(out_img_path, image_det)
+        except:
+            print(sy, sy+h, sx, sx+w)
+            continue
+        
+        if idx%100 == 0:
+            print("{}/{}".format(idx, len(idx_list)))
 
     #     # show smoking points
     #     points = np.array(ann_info['keypoints']).reshape(-1, 3)

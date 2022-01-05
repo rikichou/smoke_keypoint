@@ -2,7 +2,7 @@ import os
 import glob
 
 IMAGE_DIR = r'E:\software\haisi\RuyiStudio-2.0.46\workspace\smoke_keypoints\smoke_keypoints\data\images'
-out_file_path = r'E:\software\haisi\RuyiStudio-2.0.46\workspace\smoke_keypoints\smoke_keypoints\data\images\image_list_all_with_prefix.txt'
+out_file_path = r'E:\software\haisi\RuyiStudio-2.0.46\workspace\smoke_keypoints\smoke_keypoints\data\images\image_list.txt'
 
 images_list = glob.glob(os.path.join(IMAGE_DIR, '*.jpg'))
 
