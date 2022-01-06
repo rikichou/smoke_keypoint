@@ -2,32 +2,34 @@ import sys
 import os
 import json
 import numpy as np
+import glob
 
-NEG_ANNS_PATH = r'E:\workspace\pro\smoke_keypoint\data\test\search_20220104_negative.json'
-POS_ANNS_PATH = r'E:\workspace\pro\smoke_keypoint\data\test\search_20220104_smoke.json'
+NEG_IMGS_DIR = r'E:\workspace\pro\smoke_keypoint\data\test\images\negative'
+POS_IMGS_DIR = r'E:\workspace\pro\smoke_keypoint\data\test\images\positive'
 
-OUT_JSON_PATH = r'E:\workspace\pro\smoke_keypoint\data\test\results_20220104.json'
+OUT_JSON_PATH = r'E:\workspace\pro\smoke_keypoint\data\test\images\results_images.json'
 
-def get_json_infos(anns_path, label):
-    vnames = []
+def get_images_infos(images_dir, label):
     scores = []
     labels = []
-    
-    with open(anns_path, 'r') as fp:
-        infos = json.load(fp)
 
-    for name in infos:
-        vnames.append(name)
-        scores.append(infos[name])
+    images_paths = glob.glob(os.path.join(images_dir, r'*\*.jpg'))
+
+    for img_path in images_paths:
+        # get scores img_{:05d}_{:.2f}_{:.2f}_{:.2f}.jpg
+        name = os.path.basename(img_path)
+        score = os.path.splitext(name)[0].split('_')[2:]
+        score = [float(num) for num in score]
+        scores.append(score)
+        # get labels
         labels.append(label)
     
-    return vnames, scores, labels
+    return scores, labels
 
-neg_vnames, neg_scores, neg_labels = get_json_infos(NEG_ANNS_PATH, 0)
-pos_vnames, pos_scores, pos_labels = get_json_infos(POS_ANNS_PATH, 1)
-
-neg_vnames.extend(pos_vnames)
-vnames = neg_vnames
+neg_scores, neg_labels = get_images_infos(NEG_IMGS_DIR, 0)
+pos_scores, pos_labels = get_images_infos(POS_IMGS_DIR, 1)
+#pos_scores = []
+#pos_labels = []
 
 neg_scores.extend(pos_scores)
 scores = neg_scores
@@ -39,19 +41,16 @@ def get_predict(scores, threaholds:list):
     predict = []
     threaholds = np.array(threaholds)
     # get videos scores
-    for v_score in scores:
-        v_score = np.array(v_score)
-        c = v_score>=threaholds
-        
-        res = np.sum(c, axis=1)
-        res = res==3
-        
-        if sum(res) >= 1:
-            predict.append(1)
-        else:
-            predict.append(0)
-        # ret = np.zeros(len(res))
-        # ret[res] = 1
+    v_score = scores
+    v_score = np.array(v_score)
+    c = v_score>=threaholds
+    
+    res = np.sum(c, axis=1)
+    res = res==3
+    
+    predict = np.zeros(len(res))
+    predict[res] = 1
+
     return predict
 
 def get_accuracy(scores, labels, threaholds:list):
@@ -66,6 +65,7 @@ def get_accuracy(scores, labels, threaholds:list):
     # get positive acc
     mask = labels==1
     pos_acc = sum(labels[mask]==pred[mask])/len(pred[mask])
+    #pos_acc = 0
     
     # get negative acc
     mask = labels==0
@@ -73,7 +73,7 @@ def get_accuracy(scores, labels, threaholds:list):
 
     return acc, pos_acc, neg_acc
 
-#print(get_accuracy(scores, labels, [0.8, 0.8, 0.8]))
+print(get_accuracy(scores, labels, [0.8, 0.8, 0.8]))
 
 accs = []
 pos_accs = []
