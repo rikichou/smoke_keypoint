@@ -4,7 +4,7 @@ import random
 import sys
 import os
 sys.path.append(os.path.join(os.getcwd(), '../common_utils'))
-sys.path.append('../common_utils/face_align_jt')
+sys.path.append('../common_utils/Facealign')
 import os
 import time
 import json
@@ -16,7 +16,8 @@ if sys.platform == "darwin":
     yolov5_src = "/Users/zhourui/workspace/pro/source/yolov5"
 elif sys.platform == 'win32':
     print('=>>>>load data from window platform')
-    yolov5_src = r"E:\workspace\pro\source\yolov5"
+    #yolov5_src = r"E:\workspace\pro\source\yolov5"
+    yolov5_src = r"D:\workspace\pro\source\yolov5"
 else:
     print('=>>>>load data from linux platform')
     yolov5_src = "/home/ruiming/workspace/pro/source/yolov5"
@@ -25,7 +26,7 @@ sys.path.append(yolov5_src)
 
 import numpy as np
 from smoke_keypoint_python import smoke_keypoint
-from face_align_jt import FaceAlignment
+from Facealign import FaceAlignment
 
 #video_path = r'E:\workspace\pro\facialExpression\data\test\NIR\20210810\0000000000000000-210810-201218-201303-000006000190.avi'
 def get_smoking_rect_by_facialpoints(image, pts, facerect):
@@ -211,9 +212,9 @@ def test_video(video_path, args, fd, sk, fa):
     # # debug
     # cv2.destroyAllWindows()
 
-OUT_ANNS_PATH = r'E:\workspace\pro\smoke_keypoint\data\test\shanghai.json'
+OUT_ANNS_PATH = r'E:\workspace\pro\smoke_keypoint\data\test\search_20220104_negative.json'
 
-video_dir = r'E:\workspace\pro\smoke_keypoint\data\test\shanghai'
+video_dir = r'E:\workspace\pro\smoke_keypoint\data\test\search_20220104_negative'
 #video_dir = r'E:\workspace\pro\smoke_keypoint\data\test\selected'
 video_list = glob.glob(video_dir+'\*.avi')
 video_list.extend(glob.glob(video_dir+'\*.mp4'))
@@ -256,13 +257,15 @@ if True:
                                       grayscale=False)
 
     # face alignment
-    fa = FaceAlignment.faceAlignment('../common_utils/face_align_jt/models/multiScale_7_20210716.pkl')
+    fa = FaceAlignment.faceAlignment('../common_utils/Facealign/models/multiScale_7_20210716.pkl')
 
 
 out_info = {}
 for idx,v in enumerate(video_list):
     scores = test_video(v, args, fd, sk, fa)
     out_info[os.path.basename(v)] = scores
+    
+    print(idx)
 
 with open(OUT_ANNS_PATH, 'w') as fp:
     json.dump(out_info, fp)
