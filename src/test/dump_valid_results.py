@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import json
 
-OUT_JSON_PATH = r'E:\workspace\pro\smoke_keypoint\data\test\results_20220104.json'
+OUT_JSON_PATH = r'E:\workspace\pro\smoke_keypoint\data\test\images\results_all_images.json'
 
 with open(OUT_JSON_PATH, 'r') as fp:
     infos = json.load(fp)
@@ -13,6 +13,7 @@ neg_accs = np.array(infos['neg_accs'])
 threads = np.array(infos['threads'])
 
 max_idx = np.argmax(accs)
+print(np.max(accs))
 print("Max Accuracy:{}, pos_acc:{}, neg_acc{}, thread:{}".format(accs[max_idx], pos_accs[max_idx], neg_accs[max_idx], threads[max_idx]))
 
 max_idx = np.argmax(pos_accs)
