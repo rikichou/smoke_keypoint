@@ -47,6 +47,8 @@ labels = pos_labels[:test_num]+neg_labels[:test_num]
 # neg_scores.extend(pos_scores)
 # scores = neg_scores
 
+print("Total {} images".format(len(labels)))
+
 # neg_labels.extend(pos_labels)
 # labels = neg_labels
 
@@ -95,25 +97,26 @@ def get_accuracy(scores, labels, threaholds:list):
 
     return acc, pos_acc, neg_acc
 
-print(get_accuracy(scores, labels, [0.1, 0.1, 0.85]))
-print(get_accuracy(scores, labels, [0.2, 0.2, 0.85]))
-print(get_accuracy(scores, labels, [0.3, 0.3, 0.85]))
-print(get_accuracy(scores, labels, [0.4, 0.4, 0.85]))
-print(get_accuracy(scores, labels, [0.4, 0.4, 0.6]))
-print(get_accuracy(scores, labels, [0.4, 0.4, 0.7]))
-print(get_accuracy(scores, labels, [0.4, 0.4, 0.75]))
-print(get_accuracy(scores, labels, [0.4, 0.4, 0.8]))
-print(get_accuracy(scores, labels, [0.4, 0.4, 0.85]))
-print(get_accuracy(scores, labels, [0.4, 0.4, 0.9]))
+# print(get_accuracy(scores, labels, [0.1, 0.1, 0.85]))
+# print(get_accuracy(scores, labels, [0.2, 0.2, 0.85]))
+# print(get_accuracy(scores, labels, [0.3, 0.3, 0.85]))
+# print(get_accuracy(scores, labels, [0.4, 0.4, 0.85]))
+# print(get_accuracy(scores, labels, [0.4, 0.4, 0.6]))
+# print(get_accuracy(scores, labels, [0.4, 0.4, 0.7]))
+# print(get_accuracy(scores, labels, [0.4, 0.4, 0.75]))
+# print(get_accuracy(scores, labels, [0.4, 0.4, 0.8]))
+# print(get_accuracy(scores, labels, [0.4, 0.4, 0.85]))
+print("0.4, 0.4, 0.9:", get_accuracy(scores, labels, [0.4, 0.4, 0.9]))
 
-print(get_accuracy(scores, labels, [0.0, 0.0, 0.82]))
-print(get_accuracy(scores, labels, [0.0, 0.0, 0.83]))
-print(get_accuracy(scores, labels, [0.0, 0.0, 0.84]))
-print(get_accuracy(scores, labels, [0.0, 0.0, 0.85]))
-print(get_accuracy(scores, labels, [0.0, 0.0, 0.86]))
-print(get_accuracy(scores, labels, [0.0, 0.0, 0.87]))
-print(get_accuracy(scores, labels, [0.0, 0.0, 0.88]))
-print(get_accuracy(scores, labels, [0.0, 0.0, 0.89]))
+# print(get_accuracy(scores, labels, [0.0, 0.0, 0.82]))
+# print(get_accuracy(scores, labels, [0.0, 0.0, 0.83]))
+# print(get_accuracy(scores, labels, [0.0, 0.0, 0.84]))
+# print(get_accuracy(scores, labels, [0.0, 0.0, 0.85]))
+# print(get_accuracy(scores, labels, [0.0, 0.0, 0.86]))
+# print(get_accuracy(scores, labels, [0.0, 0.0, 0.87]))
+# print(get_accuracy(scores, labels, [0.0, 0.0, 0.88]))
+print("[0.85, 0.85, 0.85]:", get_accuracy(scores, labels, [0.85, 0.85, 0.85]))
+print("[0.0, 0.0, 0.89]:", get_accuracy(scores, labels, [0.0, 0.0, 0.89]))
 
 assert False
 

@@ -4,8 +4,8 @@ import json
 
 from multiprocessing import Process, Lock, Value
 
-DATA_ROOT_DIR = r'W:\F_public\public\workspace\exchange'
-OUT_ROOT_DIR = r'E:\workspace\pro\smoke_keypoint\data\dsc\search_20220115'
+DATA_ROOT_DIR = r'W:\videosrc'
+OUT_ROOT_DIR = r'E:\workspace\pro\smoke_keypoint\data\dsc\search_20220116'
 
 def data_search(data_root_dir, idx):
     print("Start thread {}:{}".format(idx, data_root_dir))
@@ -42,7 +42,7 @@ def main():
 
     # get all sub dirs
     files = os.listdir(DATA_ROOT_DIR)
-    filters = []
+    filters = ['dsm']
     dirs = [os.path.join(DATA_ROOT_DIR, f) for f in files if os.path.isdir(os.path.join(DATA_ROOT_DIR, f)) and f not in filters]
 
     print(dirs)
