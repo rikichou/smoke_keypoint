@@ -79,7 +79,10 @@ def deal(item):
             new_video_name = os.path.join(os.path.dirname(f), new_name)
 
             print("rename: {} ---> {}".format(f, new_video_name))
-            os.rename(f, new_video_name)
+            if os.path.exists(new_video_name):
+                os.remove(f)
+            else:
+                os.rename(f, new_video_name)
             # os.rename(aitxt_path, new_aitxt_name)
 
 args = parse_args()
